@@ -20,10 +20,10 @@ public class TSDBTest {
         dataPath = args[2];
         if ("1".equals(args[0])) {
             if ("1".equals(args[1])) {
-                testInfluxdb(true);
+                testInfluxdb(true, args[3]);
             }
             if ("2".equals(args[1])) {
-                testInfluxdb(false);
+                testInfluxdb(false, args[3]);
             }
             if ("0".equals(args[1])) {
                 TSBM.generateData(dataPath);
@@ -34,10 +34,10 @@ public class TSDBTest {
                 TSBM.generateData(dataPath);
             }
             if ("1".equals(args[1])) {
-                testTimescaledb(true);
+                testTimescaledb(true, args[3]);
             }
             if ("2".equals(args[1])) {
-                testTimescaledb(false);
+                testTimescaledb(false, args[3]);
             }
         }
         if ("3".equals(args[0])) {
@@ -45,10 +45,10 @@ public class TSDBTest {
                 TSBM.generateData(dataPath);
             }
             if ("1".equals(args[1])) {
-                testIotdb(true);
+                testIotdb(true, args[3]);
             }
             if ("2".equals(args[1])) {
-                testIotdb(false);
+                testIotdb(false, args[3]);
             }
         }
         if ("4".equals(args[0])) {
@@ -56,10 +56,10 @@ public class TSDBTest {
                 TSBM.generateData(dataPath);
             }
             if ("1".equals(args[1])) {
-                testOpentsdb(true);
+                testOpentsdb(true, args[3]);
             }
             if ("2".equals(args[1])) {
-                testOpentsdb(false);
+                testOpentsdb(false, args[3]);
             }
         }
         if ("5".equals(args[0])) {
@@ -67,60 +67,60 @@ public class TSDBTest {
                 TSBM.generateData(dataPath);
             }
             if ("1".equals(args[1])) {
-                testDruid(true);
+                testDruid(true, args[3]);
             }
             if ("2".equals(args[1])) {
-                testDruid(false);
+                testDruid(false, args[3]);
             }
         }
 
     }
 
-    public static void testIotdb(boolean loadParam) {
+    public static void testIotdb(boolean loadParam, String scale) {
 //        String dataPath = dataPath;
         String className = "cn.edu.ruc.IotdbAdapter";
         String ip = "127.0.0.1";
         String port = "6667";
         String userName = "root";
         String passwd = "root";
-        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam, scale);
     }
 
-    public static void testInfluxdb(boolean loadParam) {
+    public static void testInfluxdb(boolean loadParam, String scale) {
 //        String dataPath = "/Users/fasape/project/tsdb-test/";
         String className = "cn.edu.ruc.InfluxdbAdapter";
         String ip = "127.0.0.1";
         String port = "8086";
         String userName = "root";
         String passwd = "root";
-        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam, scale);
     }
 
-    public static void testTimescaledb(boolean loadParam) {
+    public static void testTimescaledb(boolean loadParam, String scale) {
 //        String dataPath = "/Users/fasape/project/tsdb-test/";
         String className = "cn.edu.ruc.TimescaledbAdapter";
         String ip = "127.0.0.1";
         String port = "5432";
         String userName = "postgres";
         String passwd = "postgres";
-        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam, scale);
     }
 
-    public static void testOpentsdb(boolean loadParam) {
+    public static void testOpentsdb(boolean loadParam, String scale) {
         String className = "cn.edu.ruc.OpentsdbAdapter";
         String ip = "127.0.0.1";
         String port = "4242";
         String userName = "root"; //not required
         String passwd = "root"; //not required
-        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam, scale);
     }
 
-    public static void testDruid(boolean loadParam) {
+    public static void testDruid(boolean loadParam, String scale) {
         String className = "cn.edu.ruc.DruidAdapter";
         String ip = "127.0.0.1";
         String port = "";
         String userName = "root"; //not required
         String passwd = "root"; //not required
-        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam);
+        TSBM.startPerformTest(dataPath, className, ip, port, userName, passwd, false, loadParam, scale);
     }
 }

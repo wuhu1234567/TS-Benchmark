@@ -34,7 +34,10 @@ DB_CODE=5
 ##测试项选择
 # 0: generate,1:i,w,r ,2 w,r
 TEST_METHOD=0
+##数据规模
+# 1: large, 2: normal
+SCALE=2
 
 
-exec "$JAVA" -cp "$CLASSPATH" "$MAIN_CLASS" "$DB_CODE" "${TEST_METHOD}" "${DATA_PATH}"
+exec "$JAVA" -cp "$CLASSPATH" "$MAIN_CLASS" "$DB_CODE" "${TEST_METHOD}" "${DATA_PATH}" "$SCALE"
 exit $?

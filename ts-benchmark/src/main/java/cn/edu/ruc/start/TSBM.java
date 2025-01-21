@@ -40,8 +40,8 @@ public class TSBM {
      * @param password
      */
     public static void startPerformTest(String basePath, String className, String ip, String port, String userName,
-                                        String password) {
-        startPerformTest(basePath, className, ip, port, userName, password, true, true);
+                                        String password, String scale) {
+        startPerformTest(basePath, className, ip, port, userName, password, true, true, scale);
     }
 
     /**
@@ -57,7 +57,7 @@ public class TSBM {
      * @param loadParam     whether to load data to database,true means  load,false is not ;
      */
     public static void startPerformTest(String basePath, String className, String ip, String port, String userName,
-                                        String password, boolean generateParam, boolean loadParam) {
+                                        String password, boolean generateParam, boolean loadParam, String scale) {
         BaseAdapter adapter = null;
         try {
             adapter = (BaseAdapter) Class.forName(className).newInstance();
@@ -91,10 +91,10 @@ public class TSBM {
             System.out.println("<<<<<<<<<<load data finished " + System.currentTimeMillis() + "<<<<<<<<<<<");
 
         }
-
+        int scalei = (int)(scale.charAt(0) - '0');
         // 3 append测试
         System.out.println(">>>>>>>>>>append test begin " + System.currentTimeMillis() + ">>>>>>>>>>>>");
-        String appendResult = appendPerform(dataPath, adapter, maxFarm, maxRows);
+        String appendResult = appendPerform(dataPath, adapter, maxFarm, maxRows, scalei);
         System.out.println(appendResult);
         writeResult(resultFile, appendResult);
         System.out.println("<<<<<<<<<<append test finished " + System.currentTimeMillis() + "<<<<<<<<<<<<<<");
@@ -252,7 +252,7 @@ public class TSBM {
     /**
      * append test
      */
-    private static String appendPerform(String basePath, BaseAdapter adapter, int maxFarm, int maxRows) {
+    private static String appendPerform(String basePath, BaseAdapter adapter, int maxFarm, int maxRows, int scale) {
         int sleepTime = 7000;
         StringBuffer appendResultBuffer = new StringBuffer();
         System.out.println(">>>>>>>>>>append-1 start " + System.currentTimeMillis() + ">>>>>>>>>>");
@@ -261,7 +261,7 @@ public class TSBM {
         // farm++ test
         appendResultBuffer.append("###append farm++ result");
         appendResultBuffer.append(LINE_SEPARATOR);
-        for (int farm = 1; farm <= maxFarm / 2; farm = farm * 2) {
+        for (int farm = 1; farm <= maxFarm / scale; farm = farm * 2) {
             int batchMax = 5;
             int row = 50;
             ExecutorService pool = Executors.newFixedThreadPool(farm);
