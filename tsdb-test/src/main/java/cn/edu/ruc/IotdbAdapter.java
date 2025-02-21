@@ -100,6 +100,7 @@ public class IotdbAdapter implements BaseAdapter {
                 statement.addBatch(sql);
             }
             long startTime = System.nanoTime();
+            int[] ints = statement.executeBatch();
             long endTime = System.nanoTime();
             costTime = endTime - startTime;
             statement.clearBatch();
